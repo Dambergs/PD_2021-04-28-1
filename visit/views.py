@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from visit.models import Visit
+from visit.models import Visit, Room
 
 
 def index(request):
@@ -21,18 +21,20 @@ def add_visit(request):
 
     if request.method == 'POST':
 
+        room_id = int(request.POST['room_id'])
+        room = Room.objects.get(id=room_id)
+
         visit = Visit(
             name=request.POST['name'],
             date=request.POST['date'],
             reason=request.POST['reason'],
+            room=room,
         )
 
         visit.save()
 
         context = {
-            'name': visit.name,
-            'date': visit.date,
-            'reason': visit.reason,
+            'visit': visit,
         }
 
         return render(

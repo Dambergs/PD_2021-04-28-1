@@ -6,9 +6,10 @@
 </head>
 <body>
     <p>
-        Name: <strong>{{ name }}</strong> <br>
-        Date: {{ date }} <br>
-        Reason: {{ reason }} <br>
+        Name: <strong>{{ visit.name }}</strong> <br>
+        Date: {{ visit.date }} <br>
+        Reason: {{ visit.reason }} <br>
+        Room: {{ visit.room.id }} – {{ visit.room.description }} <br>
     </p>
 </body>
 </html>
