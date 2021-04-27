@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, FormView, DetailView
 from visit.models import Visit, Room
+from visit.forms import VisitForm
 
 
 class VisitListView(ListView):
@@ -9,38 +10,24 @@ class VisitListView(ListView):
     template_name = 'visit_list.html'
 
 
-class AddVisitView(View):
+class VisitDetailView(DetailView):
 
-    def get(self, request):
+    model = Visit
+    template_name = 'visit_detail.html'
 
-        return render(
-            template_name='form.html',
-            request=request,
-        )
 
-    def post(self, request):
+class AddVisitView(FormView):
 
-        room_id = int(request.POST['room_id'])
-        room = Room.objects.get(id=room_id)
+    form_class = VisitForm
+    template_name = 'add_visit.html'
+    success_url = '/'
 
-        visit = Visit(
-            name=request.POST['name'],
-            date=request.POST['date'],
-            reason=request.POST['reason'],
-            room=room,
-        )
+    def form_valid(self, form):
+        form.save()
 
-        visit.save()
+        response = super().form_valid(form)
 
-        context = {
-            'visit': visit,
-        }
-
-        return render(
-            template_name='visit.html',
-            request=request,
-            context=context,
-        )
+        return response
 
 
 class FilterByDate(View):
