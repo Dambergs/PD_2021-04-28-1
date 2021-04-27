@@ -1,10 +1,12 @@
 # Django Visits
 
-## Uzdevumi 27.04.2021.
+---
+
+## Uzdevumi 2021-04-27
 
 ### 1. uzdevums
 <details>
-<summary>Uzdevuma saturs</summary>
+<summary>Uzdevuma apraksts</summary>
 
 - Pārveidot ``views.py`` izmantojot class based views
 - Visit saraksts ('/') tiek atvasināts no ``ListView``
@@ -15,7 +17,7 @@
 ### 2. uzdevums
 
 <details>
-<summary>Uzdevuma saturs</summary>
+<summary>Uzdevuma apraksts</summary>
 
 - Modelim ``Visit`` nomainīt date atribūta
 tipu uz ``DateField``
@@ -28,14 +30,14 @@ tipu uz ``DateField``
 - Jauna forma tiek renderēta vecās formas vietā
 ('/add_visit')
 - Pārveidot ``AddVisitView`` tā, lai strādātu ar jaunu
-formu
+formu, jāatvasina no ``FormView``
 
 </details>
 
 ### 3. uzdevums
 
 <details>
-<summary>Uzdevuma saturs</summary>
+<summary>Uzdevuma apraksts</summary>
 
 - Izdeidot VisitDetailView, kas parāda
 'visit_detail.html'

@@ -1,25 +1,24 @@
 from django.shortcuts import render
+from django.views.generic import ListView, View
 from visit.models import Visit, Room
 
 
-def index(request):
+class VisitListView(ListView):
 
-    visits = Visit.objects.all()
-
-    context = {
-        'visits': visits,
-    }
-
-    return render(
-        template_name='index.html',
-        request=request,
-        context=context,
-    )
+    model = Visit
+    template_name = 'visit_list.html'
 
 
-def add_visit(request):
+class AddVisitView(View):
 
-    if request.method == 'POST':
+    def get(self, request):
+
+        return render(
+            template_name='form.html',
+            request=request,
+        )
+
+    def post(self, request):
 
         room_id = int(request.POST['room_id'])
         room = Room.objects.get(id=room_id)
@@ -43,15 +42,17 @@ def add_visit(request):
             context=context,
         )
 
-    return render(
-        template_name='form.html',
-        request=request,
-    )
 
+class FilterByDate(View):
 
-def filter_by_date(request):
+    def get(self, request):
 
-    if request.method == 'POST':
+        return render(
+            template_name='filter_by_date.html',
+            request=request,
+        )
+
+    def post(self, request):
 
         date = request.POST['date']
         visits = Visit.objects.filter(date=date)
@@ -61,20 +62,22 @@ def filter_by_date(request):
         }
 
         return render(
-            template_name='index.html',
+            template_name='visit_list.html',
             request=request,
             context=context,
         )
 
-    return render(
-        template_name='filter_by_date.html',
-        request=request,
-    )
 
+class FilterByRoom(View):
 
-def filter_by_room(request):
+    def get(self, request):
 
-    if request.method == 'POST':
+        return render(
+            template_name='filter_by_room.html',
+            request=request,
+        )
+
+    def post(self, request):
 
         room_id = request.POST['room_id']
         visits = Visit.objects.filter(room__id=room_id)
@@ -84,12 +87,10 @@ def filter_by_room(request):
         }
 
         return render(
-            template_name='index.html',
+            template_name='visit_list.html',
             request=request,
             context=context,
         )
 
-    return render(
-        template_name='filter_by_room.html',
-        request=request,
-    )
+
+
