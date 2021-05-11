@@ -9,8 +9,12 @@ class Room(models.Model):
 
 
 class Visit(models.Model):
-
     name = models.CharField(max_length=125)
     date = models.DateField()
     reason = models.CharField(max_length=125)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
+
+# cascade ja izdzēš konrēto istabu, tad pazūd visi Visit ieraksti, kur bija norādīta attiecīgā istaba
+
+
+
